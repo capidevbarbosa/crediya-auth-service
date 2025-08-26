@@ -20,12 +20,11 @@ public class PostgreSQLConnectionPool {
 	@Bean
 	public ConnectionPool getConnectionConfig(PostgresqlConnectionProperties properties) {
 		PostgresqlConnectionConfiguration dbConfiguration = PostgresqlConnectionConfiguration.builder()
-                .host(properties.host())
-                .port(properties.port())
-                .database(properties.database())
-                .schema(properties.schema())
-                .username(properties.username())
-                .password(properties.password())
+                .host("localhost") // Asegúrate de que esto esté configurado
+                .port(5432)
+                .database("auth_db")
+                .username("crediya_user")
+                .password("crediya_password")
                 .build();
 
         ConnectionPoolConfiguration poolConfiguration = ConnectionPoolConfiguration.builder()
