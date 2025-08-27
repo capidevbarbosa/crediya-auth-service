@@ -19,7 +19,4 @@ public class Usuario {
     private Long telefono;
     private Long id_rol;
     private Double salario_base;
-
-
-
 }
