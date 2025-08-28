@@ -28,9 +28,9 @@ public class Handler {
 
     private static final Logger logger = LoggerFactory.getLogger(Handler.class);
 
-    public Mono<ServerResponse> listenPOSTUseCase(ServerRequest serverRequest) {
+    public Mono<ServerResponse> listenPOSTCrearUsuario(ServerRequest serverRequest) {
 
-        return serverRequest.bodyToMono(CreateUsuarioDto.class)
+        return serverRequest.bodyToMono(CreateUsuarioDto.class).log()
                 .flatMap(dto -> {
                     // 1. Validar el DTO
                     Set<ConstraintViolation<CreateUsuarioDto>> violations = validator.validate(dto);
@@ -55,7 +55,7 @@ public class Handler {
 
                     return useCase.saveUsuario(usuario)  // Aquí ya devuelves un Mono<Usuario>
                             .flatMap(saved -> ServerResponse.status(HttpStatus.CREATED)
-                                    .bodyValue("Usuario creado exitosamente: " + saved.getId_usuario()))
+                                        .bodyValue("Usuario creado exitosamente: " + saved.getId_usuario()))
                             .onErrorResume(e -> ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                     .bodyValue("Error al crear el usuario: " + e.getMessage()));
                 });
